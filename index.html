@@ -14,7 +14,7 @@
   <title>Rishvika Creation | Handmade Gifts, Jewellery & Nail Art</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%23173f34'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-size='38' font-weight='700' fill='%23f6eadf'%3ER%3C/text%3E%3C/svg%3E">
   <style>
 :root {
@@ -60,6 +60,8 @@ button { color: inherit; }
 .site-nav a:not(.nav-cta)::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -.45rem; height: 1px; background: var(--rose); transition: right .25s ease; }
 .site-nav a:hover::after { right: 0; }
 .nav-cta { padding: .72rem 1.15rem; color: #fff; background: var(--rose-dark); border-radius: 999px; }
+.language-toggle { padding: .62rem .9rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; transition: color .2s ease, border-color .2s ease, background .2s ease; }
+.language-toggle:hover { color: #fff; border-color: var(--green); background: var(--green); }
 .nav-toggle { display: none; width: 44px; height: 44px; border: 0; background: transparent; }
 .nav-toggle span { display: block; width: 24px; height: 1px; margin: 7px auto; background: currentColor; }
 
@@ -276,6 +278,7 @@ button { color: inherit; }
   .site-nav.is-open { display: flex; }
   .site-nav a:not(.nav-cta) { display: block; padding: .7rem .2rem; }
   .nav-cta { text-align: center; }
+  .language-toggle { width: 100%; text-align: center; }
   .hero { min-height: auto; display: flex; flex-direction: column; }
   .hero-media { order: 1; min-height: 48svh; }
   .hero-media::after { inset: auto 0 0; width: auto; height: 40%; background: linear-gradient(0deg,var(--paper),transparent); }
@@ -323,6 +326,10 @@ button { color: inherit; }
   .order-fab b { width: 42px; height: 42px; }
 }
 
+html[lang="hi"] body { font-family: "Noto Sans Devanagari", "DM Sans", sans-serif; }
+html[lang="hi"] h1, html[lang="hi"] h2, html[lang="hi"] h3, html[lang="hi"] .ticker { font-family: "Noto Serif Devanagari", "Playfair Display", serif; }
+html[lang="hi"] .eyebrow, html[lang="hi"] .announcement { letter-spacing: .08em; }
+
 @media (max-width: 430px) {
   .product-grid { grid-template-columns: 1fr; }
   .product-media { height: 390px; }
@@ -361,6 +368,7 @@ button { color: inherit; }
       <a href="#new-edit">New edit</a>
       <a href="#custom">Custom orders</a>
       <a href="#nails">Nail studio</a>
+      <button class="language-toggle" id="language-toggle" type="button" aria-label="Switch language to Hindi">हिंदी</button>
       <a class="nav-cta" href="https://www.instagram.com/rishvika926/" target="_blank" rel="noopener">Instagram</a>
     </nav>
   </header>
@@ -532,7 +540,7 @@ button { color: inherit; }
   <footer class="site-footer">
     <div class="footer-brand"><span class="brand-mark">R</span><div><strong>Rishvika Creation</strong><small>Handmade with heart in Bareilly</small></div></div>
     <div class="footer-links"><a href="#collections">Collections</a><a href="#custom">Custom orders</a><a href="#nails">Nail studio</a><a href="https://www.instagram.com/rishvika926/" target="_blank" rel="noopener">Instagram</a></div>
-    <div class="footer-bottom"><span>© <span id="year"></span> Rishvika Creation</span><span>Digital storefront concept by <a href="https://jyogisystems.com" target="_blank" rel="noopener">Jyogi Systems</a></span></div>
+    <div class="footer-bottom"><span>© <span id="year"></span> Rishvika Creation</span><span>Built by <a href="https://jyogisystems.com" target="_blank" rel="noopener">JyogiSystems</a></span></div>
   </footer>
 
   <button class="order-fab" id="order-fab" aria-controls="order-drawer" aria-expanded="false">
@@ -564,6 +572,139 @@ button { color: inherit; }
 (() => {
   const instagramUrl = "https://www.instagram.com/rishvika926/";
   const state = { items: [] };
+  const hindi = {
+    "Skip to content": "मुख्य सामग्री पर जाएँ",
+    "Handmade in Bareilly": "बरेली में हस्तनिर्मित",
+    "Custom orders welcome": "कस्टम ऑर्डर उपलब्ध",
+    "Pan-India delivery": "पूरे भारत में डिलीवरी",
+    "Creation · Bareilly": "क्रिएशन · बरेली",
+    "Collections": "कलेक्शन",
+    "New edit": "नया कलेक्शन",
+    "Custom orders": "कस्टम ऑर्डर",
+    "Nail studio": "नेल स्टूडियो",
+    "Styled collection visual": "कलेक्शन का सजाया हुआ दृश्य",
+    "Jewellery · Handmade gifts · Nail artistry": "ज्वेलरी · हैंडमेड गिफ्ट्स · नेल आर्ट",
+    "Little joys,": "छोटी खुशियाँ,",
+    "made personal.": "सिर्फ आपके लिए।",
+    "Thoughtful anti-tarnish jewellery, crochet keepsakes, resin memories and celebration hampers—created with heart in Bareilly.": "एंटी-टार्निश ज्वेलरी, क्रोशिया कीपसेक, रेज़िन यादें और सेलिब्रेशन हैम्पर—बरेली में प्यार से तैयार किए गए।",
+    "Explore the collection": "कलेक्शन देखें",
+    "DM to order": "ऑर्डर के लिए DM करें",
+    "Personalised": "पर्सनलाइज़्ड",
+    "Small-batch": "सीमित मात्रा",
+    "Gift-ready": "गिफ्ट-रेडी",
+    "Made by hand": "हाथों से बनाया",
+    "Chosen with love": "प्यार से चुना",
+    "Wrapped for joy": "खुशी से सजाया",
+    "Find your favourite": "अपनी पसंद चुनें",
+    "Shop by world": "श्रेणी के अनुसार देखें",
+    "From everyday sparkle to gifts made around a memory—browse the kind of joy you are looking for.": "रोज़मर्रा की चमक से लेकर यादों से बने खास उपहारों तक—अपनी पसंद की खुशी चुनें।",
+    "Everyday glow": "हर दिन की चमक",
+    "Anti-tarnish jewellery": "एंटी-टार्निश ज्वेलरी",
+    "Softly handmade": "प्यार से हस्तनिर्मित",
+    "Crochet cuties": "प्यारे क्रोशिया गिफ्ट्स",
+    "Keep a memory": "यादें सँजोएँ",
+    "Resin keepsakes": "रेज़िन कीपसेक",
+    "Made for their moment": "उनके खास पल के लिए",
+    "Custom gift hampers": "कस्टम गिफ्ट हैम्पर",
+    "Bareilly studio": "बरेली स्टूडियो",
+    "Nail artistry": "नेल आर्ट",
+    "Explore": "देखें",
+    "Book": "बुक करें",
+    "The Rishvika edit": "Rishvika का खास कलेक्शन",
+    "Made to make you smile": "आपकी मुस्कान के लिए",
+    "All": "सभी",
+    "Jewellery": "ज्वेलरी",
+    "Crochet": "क्रोशिया",
+    "Resin": "रेज़िन",
+    "Gifting": "गिफ्टिंग",
+    "Popular": "लोकप्रिय",
+    "Anti-tarnish · Adjustable": "एंटी-टार्निश · एडजस्टेबल",
+    "Tulip Bracelet": "ट्यूलिप ब्रेसलेट",
+    "Price on request": "कीमत पूछें",
+    "Italian edit": "इटैलियन एडिट",
+    "Anti-tarnish · Everyday": "एंटी-टार्निश · रोज़मर्रा",
+    "Statement Rings": "स्टेटमेंट रिंग्स",
+    "Ask availability": "उपलब्धता पूछें",
+    "Handmade": "हस्तनिर्मित",
+    "Crochet · Custom colours": "क्रोशिया · पसंद के रंग",
+    "Tulip Keepsake": "ट्यूलिप कीपसेक",
+    "Made to order": "ऑर्डर पर तैयार",
+    "Cute pick": "प्यारी पसंद",
+    "Bag charm · Keychain": "बैग चार्म · कीचेन",
+    "Crochet Teddy": "क्रोशिया टेडी",
+    "Custom colours": "पसंद के रंग",
+    "Personalise it": "इसे खास बनाएँ",
+    "Resin · Real botanicals": "रेज़िन · असली फूल-पत्तियाँ",
+    "Floral Pendant": "फ्लोरल पेंडेंट",
+    "Custom hamper · Occasion": "कस्टम हैम्पर · खास अवसर",
+    "Signature Gift Box": "सिग्नेचर गिफ्ट बॉक्स",
+    "Built to budget": "आपके बजट के अनुसार",
+    "Add to order": "ऑर्डर में जोड़ें",
+    "Handmade availability, colours and current prices are confirmed before every order.": "हर ऑर्डर से पहले उपलब्धता, रंग और मौजूदा कीमत की पुष्टि की जाती है।",
+    "Not off the shelf": "साधारण नहीं, आपके लिए खास",
+    "Tell us the person.": "हमें उनके बारे में बताएँ।",
+    "We’ll shape the gift.": "हम खास उपहार बनाएँगे।",
+    "Share the occasion, colours, budget and the feeling you want to create. Rishvika brings the pieces together into something that feels considered—not copied.": "अवसर, पसंदीदा रंग, बजट और अपनी भावना बताएँ। Rishvika इन्हें मिलाकर ऐसा उपहार तैयार करती है जो सच में खास लगे।",
+    "Share your idea": "अपना विचार बताएँ",
+    "Occasion, budget and timeline": "अवसर, बजट और समय",
+    "Choose the details": "विवरण चुनें",
+    "Colours, products and message": "रंग, प्रोडक्ट और संदेश",
+    "Approve & celebrate": "मंज़ूरी दें और जश्न मनाएँ",
+    "Final confirmation before making": "बनाने से पहले अंतिम पुष्टि",
+    "Build a custom request": "कस्टम अनुरोध बनाएँ",
+    "Celebration edit": "सेलिब्रेशन कलेक्शन",
+    "Gifts that arrive as a moment": "ऐसे उपहार जो यादगार पल बन जाएँ",
+    "Curated hampers can combine jewellery, chocolates, flowers, handmade keepsakes and a personal message.": "कस्टम हैम्पर में ज्वेलरी, चॉकलेट, फूल, हैंडमेड कीपसेक और आपका निजी संदेश शामिल किया जा सकता है।",
+    "Signature mixed hamper": "सिग्नेचर मिक्स्ड हैम्पर",
+    "Jewellery & chocolate pairing": "ज्वेलरी और चॉकलेट कॉम्बो",
+    "Handmade crochet hamper": "हैंडमेड क्रोशिया हैम्पर",
+    "Pressed-flower keepsake box": "प्रेस्ड-फ्लावर कीपसेक बॉक्स",
+    "Enquire about a hamper": "हैम्पर के बारे में पूछें",
+    "House of Nails · Bareilly": "House of Nails · बरेली",
+    "A little art,": "थोड़ी-सी कला,",
+    "right at your fingertips.": "आपकी उँगलियों पर।",
+    "For nail-art appointments, share your preferred date, style reference and occasion directly with the studio.": "नेल-आर्ट अपॉइंटमेंट के लिए अपनी पसंदीदा तारीख, डिज़ाइन रेफरेंस और अवसर सीधे स्टूडियो को बताएँ।",
+    "Ask for an appointment": "अपॉइंटमेंट पूछें",
+    "Appointment availability is confirmed by Rishvika Creation.": "अपॉइंटमेंट की उपलब्धता Rishvika Creation द्वारा पुष्टि की जाती है।",
+    "Follow the making": "हमारे साथ जुड़े रहें",
+    "New drops, custom pieces": "नए कलेक्शन, कस्टम पीस",
+    "& behind-the-scenes joy.": "और पर्दे के पीछे की झलकियाँ।",
+    "Handmade with heart in Bareilly": "बरेली में प्यार से हस्तनिर्मित",
+    "Built by": "निर्मित किया",
+    "My enquiry": "मेरी पूछताछ",
+    "Your request": "आपका अनुरोध",
+    "Let’s make it yours": "इसे आपके लिए खास बनाएँ",
+    "Add something you love, or start a custom request.": "अपनी पसंद की चीज़ जोड़ें या कस्टम अनुरोध शुरू करें।",
+    "Occasion or purpose": "अवसर या उद्देश्य",
+    "Colour preference": "पसंदीदा रंग",
+    "Approximate budget": "अनुमानित बजट",
+    "Anything to personalise?": "क्या पर्सनलाइज़ करना है?",
+    "Copy request & open Instagram": "अनुरोध कॉपी करें और Instagram खोलें",
+    "Share request": "अनुरोध साझा करें",
+    "This prepares an enquiry only. Price, stock, delivery and payment are confirmed directly by Rishvika Creation.": "यह केवल पूछताछ तैयार करता है। कीमत, स्टॉक, डिलीवरी और भुगतान की पुष्टि सीधे Rishvika Creation से होगी।",
+    "Remove": "हटाएँ",
+    "Added ✓": "जोड़ दिया ✓"
+  };
+  const hindiAttributes = {
+    "Open menu": "मेनू खोलें", "Close menu": "मेनू बंद करें",
+    "Switch language to Hindi": "भाषा को अंग्रेज़ी में बदलें",
+    "Close order request": "ऑर्डर अनुरोध बंद करें",
+    "Birthday, everyday, appointment…": "जन्मदिन, रोज़मर्रा, अपॉइंटमेंट…",
+    "Emerald, blush, pastel, surprise me…": "एमराल्ड, ब्लश, पेस्टल या सरप्राइज़…",
+    "For example: under ₹1,000": "उदाहरण: ₹1,000 से कम",
+    "Name, date, message, flower, design idea…": "नाम, तारीख, संदेश, फूल या डिज़ाइन आइडिया…"
+  };
+  let currentLanguage = localStorage.getItem("rishvika-language") === "hi" ? "hi" : "en";
+  const originalText = new WeakMap();
+  const originalAttributes = new WeakMap();
+  const translateValue = (value) => {
+    const leading = value.match(/^\s*/)?.[0] || "";
+    const trailing = value.match(/\s*$/)?.[0] || "";
+    const core = value.trim();
+    if (!core) return value;
+    return `${leading}${hindi[core] || core}${trailing}`;
+  };
+  const productLabel = (name) => currentLanguage === "hi" ? (hindi[name] || name) : name;
 
   const navToggle = document.querySelector(".nav-toggle");
   const nav = document.querySelector(".site-nav");
@@ -575,13 +716,52 @@ button { color: inherit; }
   const empty = document.getElementById("order-empty");
   const form = document.getElementById("order-form");
   const status = document.getElementById("copy-status");
+  const languageToggle = document.getElementById("language-toggle");
+
+  const applyLanguage = () => {
+    document.documentElement.lang = currentLanguage;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.parentElement?.closest("script, style")) continue;
+      if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+      const source = originalText.get(node);
+      node.nodeValue = currentLanguage === "hi" ? translateValue(source) : source;
+    }
+    document.querySelectorAll("[aria-label], [placeholder]").forEach(element => {
+      if (!originalAttributes.has(element)) {
+        originalAttributes.set(element, {
+          ariaLabel: element.getAttribute("aria-label"),
+          placeholder: element.getAttribute("placeholder")
+        });
+      }
+      const source = originalAttributes.get(element);
+      for (const [attribute, value] of [["aria-label", source.ariaLabel], ["placeholder", source.placeholder]]) {
+        if (value === null) continue;
+        let translated = value;
+        if (currentLanguage === "hi") {
+          translated = hindiAttributes[value] || (value.startsWith("Remove ") ? `हटाएँ ${productLabel(value.slice(7))}` : value);
+        }
+        element.setAttribute(attribute, translated);
+      }
+    });
+    languageToggle.textContent = currentLanguage === "hi" ? "English" : "हिंदी";
+    languageToggle.setAttribute("aria-label", currentLanguage === "hi" ? "भाषा को अंग्रेज़ी में बदलें" : "Switch language to Hindi");
+    localStorage.setItem("rishvika-language", currentLanguage);
+  };
+
+  languageToggle?.addEventListener("click", () => {
+    currentLanguage = currentLanguage === "en" ? "hi" : "en";
+    renderItems();
+    applyLanguage();
+  });
 
   document.getElementById("year").textContent = new Date().getFullYear();
 
   navToggle?.addEventListener("click", () => {
     const isOpen = nav.classList.toggle("is-open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
-    navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    navToggle.setAttribute("aria-label", currentLanguage === "hi" ? (isOpen ? "मेनू बंद करें" : "मेनू खोलें") : (isOpen ? "Close menu" : "Open menu"));
   });
 
   nav?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
@@ -625,13 +805,13 @@ button { color: inherit; }
     count.textContent = state.items.length;
     fab.classList.toggle("is-empty", state.items.length === 0);
     empty.hidden = state.items.length > 0;
-    itemsList.innerHTML = state.items.map((item, index) => `<li><span>${item}</span><button type="button" data-remove="${index}" aria-label="Remove ${item}">Remove</button></li>`).join("");
+    itemsList.innerHTML = state.items.map((item, index) => `<li><span>${productLabel(item)}</span><button type="button" data-remove="${index}" aria-label="${currentLanguage === "hi" ? `हटाएँ ${productLabel(item)}` : `Remove ${item}`}">${currentLanguage === "hi" ? "हटाएँ" : "Remove"}</button></li>`).join("");
     document.querySelectorAll(".add-order[data-product]").forEach(button => {
       const added = state.items.includes(button.dataset.product);
       button.classList.toggle("is-added", added);
-      if (added) button.textContent = "Added ✓";
-      else if (button.closest(".center-action")) button.textContent = "Enquire about a hamper";
-      else button.textContent = "Add to order";
+      if (added) button.textContent = currentLanguage === "hi" ? "जोड़ दिया ✓" : "Added ✓";
+      else if (button.closest(".center-action")) button.textContent = currentLanguage === "hi" ? "हैम्पर के बारे में पूछें" : "Enquire about a hamper";
+      else button.textContent = currentLanguage === "hi" ? "ऑर्डर में जोड़ें" : "Add to order";
     });
   };
 
@@ -658,7 +838,15 @@ button { color: inherit; }
 
   const buildMessage = () => {
     const data = new FormData(form);
-    const products = state.items.length ? state.items.map(item => `• ${item}`).join("\n") : "• I would like a custom recommendation";
+    const products = state.items.length ? state.items.map(item => `• ${productLabel(item)}`).join("\n") : (currentLanguage === "hi" ? "• मुझे कस्टम सुझाव चाहिए" : "• I would like a custom recommendation");
+    if (currentLanguage === "hi") return [
+      "नमस्ते Rishvika Creation! मैं इनके बारे में पूछना चाहता/चाहती हूँ:", products, "",
+      `अवसर/उद्देश्य: ${data.get("occasion") || "नहीं बताया"}`,
+      `पसंदीदा रंग: ${data.get("colour") || "नहीं बताया"}`,
+      `अनुमानित बजट: ${data.get("budget") || "नहीं बताया"}`,
+      `पर्सनलाइज़ेशन/विवरण: ${data.get("notes") || "अभी कुछ नहीं"}`, "",
+      "कृपया मौजूदा कीमत, उपलब्धता और डिलीवरी की जानकारी साझा करें।"
+    ].join("\n");
     return [
       "Hi Rishvika Creation! I would like to enquire about:",
       products,
@@ -675,9 +863,9 @@ button { color: inherit; }
   const copyMessage = async (message) => {
     try {
       await navigator.clipboard.writeText(message);
-      status.textContent = "Request copied. Paste it into your Instagram DM.";
+      status.textContent = currentLanguage === "hi" ? "अनुरोध कॉपी हो गया। इसे Instagram DM में पेस्ट करें।" : "Request copied. Paste it into your Instagram DM.";
     } catch {
-      status.textContent = "Instagram is opening—copy the request from this page if needed.";
+      status.textContent = currentLanguage === "hi" ? "Instagram खुल रहा है—ज़रूरत हो तो इस पेज से अनुरोध कॉपी करें।" : "Instagram is opening—copy the request from this page if needed.";
     }
   };
 
@@ -690,7 +878,7 @@ button { color: inherit; }
   document.getElementById("share-order").addEventListener("click", async () => {
     const message = buildMessage();
     if (navigator.share) {
-      try { await navigator.share({ title: "Rishvika Creation enquiry", text: message }); }
+      try { await navigator.share({ title: currentLanguage === "hi" ? "Rishvika Creation पूछताछ" : "Rishvika Creation enquiry", text: message }); }
       catch { /* User cancelled the share sheet. */ }
     } else {
       await copyMessage(message);
@@ -698,6 +886,7 @@ button { color: inherit; }
   });
 
   renderItems();
+  applyLanguage();
 })();
 
   </script>
